@@ -6,6 +6,12 @@ export interface RequestUser {
   last_name?: string;
 }
 
+export interface RequestUpdateUser {
+  email?: string;
+  first_name?: string;
+  last_name?: string;
+}
+
 export interface ResponseUser {
   meta: {
     message: string;

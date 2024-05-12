@@ -1,26 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { UserRepository } from './user.repository';
-import { RequestUser } from 'types/user';
+import { RequestUpdateUser, RequestUser } from 'types/user';
 import { User } from '@prisma/client';
-
-interface user {
-  _id: number;
-  name: string;
-}
 
 @Injectable()
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
-  getHello(): user {
-    return {
-      _id: 1,
-      name: 'Halo',
-    };
+  async updateUsers(user: RequestUpdateUser, id: number): Promise<User> {
+    return await this.userRepository?.updateUser(user, id);
   }
   getDataUser(): Promise<User[]> {
     return this.userRepository.getUsers();
   }
   createUser(user: RequestUser): Promise<User> {
     return this.userRepository.save(user);
+  }
+  async deleteUser(id: number): Promise<User> {
+    return await this?.userRepository?.deleteUser(id);
   }
 }
